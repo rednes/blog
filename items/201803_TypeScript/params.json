@@ -1,0 +1,13 @@
+{
+  "title": "TypeScriptでInterfaceのプロパティに動的アクセスしたいのにハマった時の解決方法",
+  "tags": [
+    {
+      "name": "TypeScript",
+      "versions": []
+    }
+  ],
+  "coediting": false,
+  "gist": false,
+  "private": true,
+  "tweet": false
+}

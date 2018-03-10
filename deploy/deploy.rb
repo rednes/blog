@@ -1,30 +1,64 @@
+# coding: utf-8
 require "rubygems"
 require "bundler/setup"
 require "qiita"
 require "json"
 
-PARAMS_FILE_PATH = 'item/params.json'
-ITEM_ID_FILE_PATH = 'item/ITEM_ID'
-BODY_FILE_PATH = 'item/README.md'
+PARAMS_FILE_NAME = 'params.json'
+ITEM_ID_FILE_NAME = 'ITEM_ID'
+LOCK_FILE_NAME = 'LOCK'
+BODY_FILE_NAME = 'README.md'
 
+# 記事を保存しているディレクトリ
+ITEMS_DIR = './items'
+
+# Qiitaのアクセストークン設定
 client = Qiita:: Client.new(access_token: ENV['QIITA_TOKEN'])
 
-params = File.open(PARAMS_FILE_PATH) do |file|
-  JSON.load(file)
-end
-headers = {'Content-Type' => 'application/json'}
+if Dir.exist?(ITEMS_DIR) then
+  # Directoryを移動
+  Dir.chdir(ITEMS_DIR)
+  # 記事保存ディレクトリのフルパス記録
+  ITEMS_DIR_FULL_PATH = Dir.pwd
+  # '.'と'..'を除いて全フォルダに対してDeploy実行
+  for dir in Dir::entries(ITEMS_DIR_FULL_PATH)[2..-1] do
+    p '[' + dir + ']'
+    # 各記事フォルダに移動
+    Dir.chdir(dir)
 
-body = File.open(BODY_FILE_PATH) do |file|
-  file.read
-end
+    # LOCKが存在したらデプロイしない
+    if File.exist?(LOCK_FILE_NAME) then
+      p 'LOCK is existed. No deploy.'
+    else
+      # 記事用のパラメータファイル読み込み
+      params = File.open(PARAMS_FILE_NAME) do |file|
+        JSON.load(file)
+      end
 
-params['body'] = body
+      # Headersを設定
+      headers = {'Content-Type' => 'application/json'}
 
-if File.exist?(ITEM_ID_FILE_PATH) then
-  item_id = File.open(ITEM_ID_FILE_PATH) do |file|
-    file.read
+      # 記事ファイル読み込み
+      body = File.open(BODY_FILE_NAME) do |file|
+        file.read
+      end
+
+      # 記事ファイルを設定
+      params['body'] = body
+
+      # ITEM_IDが存在したらその記事IDで記事を更新する。
+      # 存在しなかったら新しい記事を作成する。
+      if File.exist?(ITEM_ID_FILE_NAME) then
+        item_id = File.open(ITEM_ID_FILE_NAME) do |file|
+          file.read
+        end
+        p client.update_item(item_id, params, headers)
+      else
+        p client.create_item(params, headers)
+      end
+    end
+
+    # 記事保存ディレクトリに戻る
+    Dir.chdir(ITEMS_DIR_FULL_PATH)
   end
-  p client.update_item(item_id, params, headers)
-else
-  p client.create_item(params, headers)
 end
