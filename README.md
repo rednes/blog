@@ -1,7 +1,7 @@
-# github2qiita
+# blog
 
-[![Build Status](https://travis-ci.org/rednes/github2qiita.svg?branch=master)](https://travis-ci.org/rednes/github2qiita)
+[![Build Status](https://travis-ci.org/rednes/blog.svg?branch=master)](https://travis-ci.org/rednes/blog)
 
-GitHubへのpushをトリガーにTravisCIを起動して、Qiitaの以下記事を自動で投稿＆更新しています。
+Qiitaの記事ネタ管理用リポジトリ
 
-https://qiita.com/rednes/items/2d76435434ac632fc6d4
+https://qiita.com/rednes/
