@@ -1,5 +1,3 @@
-# TypeScriptでInterfaceのプロパティに動的アクセスしたいのにハマった時の解決方法
-
 最近TypeScriptをやっています。
 
 その際にInterfaceのプロパティにObject[propety]で動的アクセスしたかったけど、以下の様なエラーが出てハマったので解決方法を共有します。
@@ -58,15 +56,15 @@ because type 'MyInterface' has no index signature.
 
 ## 解決方法
 
-keyofとUser Defined Type Guardsを使います。
+`keyof`と`User Defined Type Guards`を使います。
 
-* keyof: 許可されるプロパティ名の列挙型を表します。`keyof MyInterface`は「'name' | 'address' | 'email'」
-* User Defined Type Guards: データの型を確定する関数を自分で定義できます。
+* `keyof`: 許可されるプロパティ名の列挙型を表します。`keyof MyInterface`は「'name' | 'address' | 'email'」
+* `User Defined Type Guards`: データの型を確定する関数を自分で定義できます。
 
 詳細はTypeScript handbookを参照してください。
 https://www.typescriptlang.org/docs/handbook/advanced-types.html
 
-User Defined Type Guardsを利用して、MyInterfaceのプロパティ名であることを保証する関数「isProperty」を定義します。
+User Defined Type Guardsを利用して、MyInterfaceのプロパティ名であることを保証する関数`isProperty`を定義します。
 
 ```TypeScript
 function isProperty(value: string): value is (keyof MyInterface){
