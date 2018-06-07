@@ -1,0 +1,28 @@
+{
+  "name": "blog",
+  "version": "1.0.0",
+  "description": "[![Build Status](https://travis-ci.org/rednes/blog.svg?branch=master)](https://travis-ci.org/rednes/blog)",
+  "main": "index.js",
+  "scripts": {
+    "lint": "$(npm bin)/textlint"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/rednes/blog.git"
+  },
+  "author": "",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/rednes/blog/issues"
+  },
+  "homepage": "https://github.com/rednes/blog#readme",
+  "devDependencies": {
+    "prh": "^5.4.3",
+    "textlint": "^10.2.1",
+    "textlint-rule-max-ten": "^2.0.3",
+    "textlint-rule-no-mix-dearu-desumasu": "^3.0.3",
+    "textlint-rule-preset-ja-technical-writing": "^2.0.0",
+    "textlint-rule-prh": "^5.0.1",
+    "textlint-rule-spellcheck-tech-word": "^5.0.0"
+  }
+}
