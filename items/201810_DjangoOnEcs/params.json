@@ -2,7 +2,15 @@
   "title": "AWS ECS上でDjangoを動かそう",
   "tags": [
     {
-      "name": ["ECS","Docker","Django"],
+      "name": "ECS",
+      "versions": []
+    },
+    {
+      "name": "Docker",
+      "versions": []
+    },
+    {
+      "name": "Django",
       "versions": []
     }
   ],
