@@ -20,6 +20,9 @@ if Dir.exist?(ITEMS_DIR) then
   Dir.chdir(ITEMS_DIR)
   # 記事保存ディレクトリのフルパス記録
   ITEMS_DIR_FULL_PATH = Dir.pwd
+  p ITEMS_DIR_FULL_PATH
+  p Dir::entries(ITEMS_DIR_FULL_PATH)
+
   # '.'と'..'を除いて全フォルダに対してDeploy実行
   for dir in Dir::entries(ITEMS_DIR_FULL_PATH)[2..-1] do
     p '[' + dir + ']'
