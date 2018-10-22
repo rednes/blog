@@ -33,6 +33,9 @@ if Dir.exist?(ITEMS_DIR) then
       # LOCKが存在したらデプロイしない
       if File.exist?(LOCK_FILE_NAME) then
         p 'LOCK is existed. No deploy.'
+      # README.mdが存在しなかったらデプロイしない
+      elsif not File.exist?(BODY_FILE_NAME) then
+        p 'README.md is not existed. No deploy.'
       else
         # 記事用のパラメータファイル読み込み
         params = File.open(PARAMS_FILE_NAME) do |file|
